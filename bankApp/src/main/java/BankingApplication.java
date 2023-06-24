@@ -57,13 +57,13 @@ public class BankingApplication {
         System.out.println("Please enter your Phone Number: ");
         customer.setPhoneNumber(scanner.nextLine());
         System.out.println("Please enter your Email Id: ");
-        String emailId = scanner.nextLine();
+        customer.setEmailId(scanner.nextLine());
         System.out.println("Please enter your address: ");
-        String adddress = scanner.nextLine();
+        customer.setAddress(scanner.nextLine());
         System.out.println("Please enter your user name: ");
-        String userName = scanner.nextLine();
+        customer.setUserName(scanner.nextLine());
         System.out.println("Please enter your password: ");
-        String password = scanner.nextLine();
+        customer.setPassword(scanner.nextLine());
     }
 
     private static boolean login() {
