@@ -1,5 +1,7 @@
+import com.bank.model.Account;
 import com.bank.model.Customer;
 
+import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class BankingApplication {
@@ -17,6 +19,7 @@ public class BankingApplication {
     private static void displayOptions() {
         boolean isLoggedIn = false;
         Customer customer = new Customer();
+        Account account = new Account();
         while (true) {
             System.out.println("\nPlease select an option:");
             System.out.println("1. Register");
@@ -33,7 +36,8 @@ public class BankingApplication {
                 }
                 case 2 -> {
                     System.out.println("Login option selected.");
-                    isLoggedIn = login();
+                    isLoggedIn = login(customer);
+                    createBankAccount(account);
                 }
                 case 0 -> {
                     System.out.println("Exiting the Bank Application System...");
@@ -43,10 +47,24 @@ public class BankingApplication {
             }
 
             if (isLoggedIn) {
-                displayLoggedInOptions();
+                displayLoggedInOptions(account);
                 break;
             }
         }
+    }
+
+    private static void createBankAccount(Account account) {
+        System.out.println("Please enter your account holder name: ");
+        account.setAccountHolderName(scanner.nextLine());
+        System.out.println("Please enter your account number: ");
+        account.setAccountNumber(scanner.nextLine());
+        System.out.println("Please enter your initial deposit: ");
+        String deposit = scanner.nextLine();
+        while(new BigDecimal(deposit).compareTo(new BigDecimal("500")) < 0) {
+                System.out.println("Your initial deposit is less than the threshold.Please enter your initial deposit: ");
+                deposit = scanner.nextLine();
+        }
+        account.setBalance(new BigDecimal(deposit));
     }
 
     private static void registerUser(Customer customer) {
@@ -66,13 +84,22 @@ public class BankingApplication {
         customer.setPassword(scanner.nextLine());
     }
 
-    private static boolean login() {
-        System.out.println("Login successful.");
-        // Implement login logic and return true if login is successful, otherwise false
-        return true;
+    private static boolean login(Customer customer) {
+        System.out.println("Please enter your user name: ");
+        String loginUserName = scanner.nextLine();
+        System.out.println("Please enter your password: ");
+        String loginPassword = scanner.nextLine();
+
+        if (loginUserName.equals(customer.getUserName()) && loginPassword.equals(customer.getPassword())) {
+            System.out.println("Login successful.");
+            return true;
+        } else {
+            System.out.println("Login failed.");
+            return false;
+        }
     }
 
-    private static void displayLoggedInOptions() {
+    private static void displayLoggedInOptions(Account account) {
         while (true) {
             System.out.println("\nPlease select an option:");
             System.out.println("1. Balance Inquiry");
@@ -84,14 +111,20 @@ public class BankingApplication {
             int choice = getIntInput();
 
             switch (choice) {
-                case 1 -> System.out.println("Balance Inquiry option selected.");
+                case 1 -> {
+                    System.out.println("Balance Inquiry option selected.");
+                    System.out.println("Please enter your account number: "); //12345
+                    BigDecimal accountBalance = account.getAccountBalance(scanner.nextLine());
+                    System.out.println("The account balance is " + accountBalance);
+                }
 
-                // Implement balance inquiry logic
                 case 2 -> System.out.println("Deposit option selected.");
+                    //Ask the user to enter the deposit amount
+                    //deposit(BigDecimal amount); add inside this method.
+                    // add the deposit amount to the current balance: account.getBalance() + deposit amount entered by the user
 
-                // Implement deposit logic
                 case 3 -> System.out.println("Withdrawal option selected.");
-
+                   // withdraw(BigDecimal amount); 500. <= current balance
                 // Implement withdrawal logic
                 case 4 -> System.out.println("Fund Transfer option selected.");
 
