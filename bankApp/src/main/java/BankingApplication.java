@@ -1,3 +1,5 @@
+import com.bank.model.Customer;
+
 import java.util.Scanner;
 
 public class BankingApplication {
@@ -14,7 +16,7 @@ public class BankingApplication {
 
     private static void displayOptions() {
         boolean isLoggedIn = false;
-
+        Customer customer = new Customer();
         while (true) {
             System.out.println("\nPlease select an option:");
             System.out.println("1. Register");
@@ -24,9 +26,11 @@ public class BankingApplication {
             int choice = getIntInput();
 
             switch (choice) {
-                case 1 -> System.out.println("Registration option selected.");
-
-                // Implement registration logic
+                case 1 -> {
+                    System.out.println("Registration option selected.");
+                    registerUser(customer);
+                    // Implement registration logic
+                }
                 case 2 -> {
                     System.out.println("Login option selected.");
                     isLoggedIn = login();
@@ -43,6 +47,23 @@ public class BankingApplication {
                 break;
             }
         }
+    }
+
+    private static void registerUser(Customer customer) {
+        System.out.println("Please enter your first name: ");
+        customer.setFirstName(scanner.nextLine());
+        System.out.println("Please enter your last name: ");
+        customer.setLastName(scanner.nextLine());
+        System.out.println("Please enter your Phone Number: ");
+        customer.setPhoneNumber(scanner.nextLine());
+        System.out.println("Please enter your Email Id: ");
+        String emailId = scanner.nextLine();
+        System.out.println("Please enter your address: ");
+        String adddress = scanner.nextLine();
+        System.out.println("Please enter your user name: ");
+        String userName = scanner.nextLine();
+        System.out.println("Please enter your password: ");
+        String password = scanner.nextLine();
     }
 
     private static boolean login() {
