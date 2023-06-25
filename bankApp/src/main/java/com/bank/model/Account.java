@@ -37,4 +37,21 @@ public class Account {
         }
         return null;
     }
+    public void deposit(BigDecimal depositAmount) {
+        BigDecimal currentBalance = this.getBalance();
+        BigDecimal newBalance = currentBalance.add(depositAmount);
+        this.setBalance(newBalance);
+        System.out.println("Deposit successful. Current balance: " + newBalance);
+
+    }
+    public void withdraw(BigDecimal withdrawalAmount) {
+        BigDecimal currentBalance = this.getBalance();
+        if (withdrawalAmount.compareTo(currentBalance) <= 0) {
+            BigDecimal newBalance = currentBalance.subtract(withdrawalAmount);
+            this.setBalance(newBalance);
+            System.out.println("Withdrawal successful. Current balance: " + newBalance);
+        } else {
+            System.out.println("Insufficient funds. Cannot complete withdrawal.");
+        }
+    }
 }

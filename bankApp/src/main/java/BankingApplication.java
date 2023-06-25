@@ -118,12 +118,22 @@ public class BankingApplication {
                     System.out.println("The account balance is " + accountBalance);
                 }
 
-                case 2 -> System.out.println("Deposit option selected.");
+                case 2 -> {
+                    System.out.println("Deposit option selected.");
+                    System.out.println("enter the deposit amount");
+                    BigDecimal depositAmount = new BigDecimal(scanner.nextLine());
+                    account.deposit(depositAmount);
                     //Ask the user to enter the deposit amount
                     //deposit(BigDecimal amount); add inside this method.
                     // add the deposit amount to the current balance: account.getBalance() + deposit amount entered by the user
+                }
+                case 3 -> {
+                    System.out.println("Withdrawal option selected.");
+                    System.out.println("Enter the withdrawal amount:");
+                    BigDecimal withdrawalAmount = new BigDecimal(scanner.nextLine());
+                    account.withdraw(withdrawalAmount);
+                }
 
-                case 3 -> System.out.println("Withdrawal option selected.");
                    // withdraw(BigDecimal amount); 500. <= current balance
                 // Implement withdrawal logic
                 case 4 -> System.out.println("Fund Transfer option selected.");
@@ -137,6 +147,7 @@ public class BankingApplication {
             }
         }
     }
+
 
     private static int getIntInput() {
         while (true) {
